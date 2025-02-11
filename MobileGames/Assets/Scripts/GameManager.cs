@@ -8,8 +8,10 @@ public class GameManager : MonoBehaviour
     private Vector2 initialTouchPosition;
     private Transform selectedTransform;
     private Camera mainCamera;
-    public LayerMask ignoreLayerMask; // LayerMask to exclude the sphere's layer
-    private float raycastDistance = 1000f; // A sufficient distance for raycasting
+    public LayerMask ignoreLayerMask;
+    private float raycastDistance = 1000f;
+    private float verticalRotationLimit = 80f; // Limits the vertical camera rotation to ±80 degrees
+    private float currentVerticalRotation = 0f;
 
     void Start()
     {
@@ -33,7 +35,7 @@ public class GameManager : MonoBehaviour
                 {
                     if (selectedObject is CubeScript)
                     {
-                        MoveCubeObject(touch);  // Updated for free 3D movement
+                        MoveCubeObject(touch);
                     }
                     else if (selectedObject is CylinderScript)
                     {
@@ -50,13 +52,13 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
-                    RotateCamera(touch);
+                    MoveCamera(touch);
                 }
             }
         }
         else if (Input.touchCount == 2)
         {
-            MoveCamera();
+            RotateCamera();
         }
     }
 
@@ -93,19 +95,19 @@ public class GameManager : MonoBehaviour
     {
         if (selectedTransform != null)
         {
-            Vector3 touchPosition = touch.position;
+            Ray ray = mainCamera.ScreenPointToRay(touch.position);
+            Plane plane = new Plane(mainCamera.transform.forward, selectedTransform.position);
 
-            float distanceToCamera = Camera.main.WorldToScreenPoint(selectedTransform.position).z;
-
-            Vector3 worldPosition = Camera.main.ScreenToWorldPoint(new Vector3(touchPosition.x, touchPosition.y, distanceToCamera));
-
-            float sensitivity = 0.01f; 
-            Vector3 moveDelta = worldPosition - selectedTransform.position;
-            selectedTransform.position += moveDelta * sensitivity;
+            float distanceToPlane;
+            if (plane.Raycast(ray, out distanceToPlane))
+            {
+                Vector3 targetPosition = ray.GetPoint(distanceToPlane);
+                float sensitivity = 1f;
+                Vector3 moveDelta = targetPosition - selectedTransform.position;
+                selectedTransform.position += moveDelta * sensitivity;
+            }
         }
     }
-
-
 
     private void MoveSelectedObject(Touch touch)
     {
@@ -138,8 +140,7 @@ public class GameManager : MonoBehaviour
     {
         if (selectedTransform != null)
         {
-            float sensitivity = 0.2f;
-
+            float sensitivity = 0.01f;
             Vector3 touchDelta = touch.deltaPosition * sensitivity;
 
             selectedTransform.RotateAround(mainCamera.transform.position, Vector3.up, touchDelta.x);
@@ -147,7 +148,22 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void MoveCamera()
+    private void MoveCamera(Touch touch)
+    {
+        if (selectedObject == null && Input.touchCount == 1)
+        {
+            if (touch.phase == TouchPhase.Moved)
+            {
+                float moveSpeed = 0.025f;
+                Vector2 delta = touch.deltaPosition;
+                float horizontal = delta.x * moveSpeed;
+                float vertical = delta.y * moveSpeed;
+                mainCamera.transform.Translate(horizontal, vertical, 0);
+            }
+        }
+    }
+
+    private void RotateCamera()
     {
         if (selectedObject == null && Input.touchCount == 2)
         {
@@ -156,26 +172,24 @@ public class GameManager : MonoBehaviour
 
             if (touch.phase == TouchPhase.Moved && touch2.phase == TouchPhase.Moved)
             {
-                float moveSpeed = 0.025f;
-                Vector2 averageDelta = (touch.deltaPosition + touch2.deltaPosition) / 2;
-                float horizontal = averageDelta.x * moveSpeed;
-                float vertical = averageDelta.y * moveSpeed;
+                float rotationSpeed = 0.2f;
+                Vector2 delta = touch.deltaPosition - touch2.deltaPosition;
 
-                mainCamera.transform.Translate(horizontal, vertical, 0);
+                // Horizontal rotation (around Y-axis)
+                float horizontal = delta.x * rotationSpeed;
+
+                // Vertical rotation (around X-axis)
+                float vertical = -delta.y * rotationSpeed;
+
+                // Update the current vertical rotation and clamp it within the limit
+                currentVerticalRotation += vertical;
+                currentVerticalRotation = Mathf.Clamp(currentVerticalRotation, -verticalRotationLimit, verticalRotationLimit);
+
+                // Apply the rotation
+                mainCamera.transform.Rotate(Vector3.up, horizontal, Space.Self);
+                mainCamera.transform.localRotation = Quaternion.Euler(currentVerticalRotation, mainCamera.transform.localRotation.eulerAngles.y, 0);
             }
         }
     }
 
-    private void RotateCamera(Touch touch)
-    {
-        if (selectedObject == null)
-        {
-            float rotationSpeed = 0.2f;
-            float horizontal = touch.deltaPosition.x * rotationSpeed;
-            float vertical = -touch.deltaPosition.y * rotationSpeed;
-
-            mainCamera.transform.Rotate(Vector3.up, horizontal, Space.Self);
-            mainCamera.transform.Rotate(mainCamera.transform.right, vertical, Space.Self);
-        }
-    }
 }
