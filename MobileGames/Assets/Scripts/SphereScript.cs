@@ -1,32 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class SphereScript : MonoBehaviour, iTouchable
+public class SphereScript : TouchableObject
 {
-    Renderer r;
+    private float raycastDistance = 1000f;
+    private LayerMask placementMask; 
 
-    void Start()
+    protected override void Start()
     {
-        r = GetComponent<Renderer>();
+        base.Start();
+        placementMask = ~LayerMask.GetMask("SphereLayer"); 
     }
-    public void SelectToggle(bool selected)
+
+    public override void MoveObject(Touch touch, Camera mainCamera)
     {
-        if (selected)
+        Ray ray = mainCamera.ScreenPointToRay(touch.position);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, raycastDistance, placementMask))
         {
-            changeColor(Color.cyan);
+            transform.position = hit.point;
         }
-        else
-            changeColor(Color.white);
-
-    }
-    public void changeColor(Color color)
-    {
-        r.material.color = color;
-    }
-
-    void Update()
-    {
-
     }
 }

@@ -1,32 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
+// CubeScript.cs
 using UnityEngine;
 
-public class CubeScript : MonoBehaviour, iTouchable
+public class CubeScript : TouchableObject
 {
-    Renderer r;
+    public override void MoveObject(Touch touch, Camera mainCamera)
+    {
+        Ray ray = mainCamera.ScreenPointToRay(touch.position);
+        Plane plane = new Plane(mainCamera.transform.forward, transform.position);
 
-    void Start()
-    {
-        r = GetComponent<Renderer>();
-    }
-    public void SelectToggle(bool selected)
-    {
-        if (selected)
+        float distanceToPlane;
+        if (plane.Raycast(ray, out distanceToPlane))
         {
-            changeColor(Color.cyan);
+            Vector3 targetPosition = ray.GetPoint(distanceToPlane);
+            float sensitivity = 1f;
+            Vector3 moveDelta = targetPosition - transform.position;
+            transform.position += moveDelta * sensitivity;
         }
-        else
-            changeColor(Color.white);
-
-    }
-    public void changeColor(Color color)
-    {
-        r.material.color = color;
-    }
-
-    void Update()
-    {
-
     }
 }

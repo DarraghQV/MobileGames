@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+// GestureManager.cs
 using UnityEngine;
 
 public class GestureManager : MonoBehaviour
@@ -7,7 +6,7 @@ public class GestureManager : MonoBehaviour
     private float tapTime = 0.5f;
     private bool hasMoved = false;
     private float timer = 0;
-    GameManager gameManager;
+    private GameManager gameManager;
 
     void Start()
     {
@@ -16,7 +15,7 @@ public class GestureManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.touchCount > 0)
+        if (Input.touchCount == 1)
         {
             Touch t = Input.GetTouch(0);
             timer += Time.deltaTime;

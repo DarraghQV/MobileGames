@@ -367,7 +367,9 @@
 "Assets/Scripts/GameManager.cs"
 "Assets/Scripts/GestureManager.cs"
 "Assets/Scripts/iTouchable.cs"
+"Assets/Scripts/ShapeController.cs"
 "Assets/Scripts/SphereScript.cs"
+"Assets/Scripts/TouchableObject.cs"
 "Assets/Scripts/TouchDetect.cs"
 "Assets/TutorialInfo/Scripts/Readme.cs"
 -langversion:9.0

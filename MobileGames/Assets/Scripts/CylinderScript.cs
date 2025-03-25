@@ -1,32 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class CylinderScript : MonoBehaviour, iTouchable
+public class CylinderScript : TouchableObject
 {
-    Renderer r;
-
-    void Start()
+    protected override void Start()
     {
-        r = GetComponent<Renderer>();
-    }
-    public void SelectToggle(bool selected)
-    {
-        if (selected)
-        {
-            changeColor(Color.cyan);
-        }
-        else
-            changeColor(Color.white);
-
-    }
-    public void changeColor(Color color)
-    {
-        r.material.color = color;
+        base.Start();
+        rotationSpeed = 2f; // Increased to maximum practical value
     }
 
-    void Update()
+    public override void MoveObject(Touch touch, Camera mainCamera)
     {
+        float sensitivity = 0.05f; // Maximum responsive value
+        Vector3 touchDelta = touch.deltaPosition * sensitivity;
 
+        transform.RotateAround(mainCamera.transform.position,
+                             Vector3.up,
+                             touchDelta.x);
+        transform.RotateAround(mainCamera.transform.position,
+                             mainCamera.transform.right,
+                             -touchDelta.y);
     }
 }
