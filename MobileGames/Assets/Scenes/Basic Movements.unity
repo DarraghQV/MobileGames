@@ -714,6 +714,14 @@ MonoBehaviour:
   ignoreLayerMask:
     serializedVersion: 2
     m_Bits: 64
+  shapePrefabs: []
+  spawnInterval: 2
+  spawnHeight: 8
+  spawnXRange: {x: -2, y: 2}
+  sizeRange: {x: 0.7, y: 1.3}
+  platform: {fileID: 1357700028}
+  platformSpeed: 1.5
+  platformRange: 5
 --- !u!4 &1442088083
 Transform:
   m_ObjectHideFlags: 0

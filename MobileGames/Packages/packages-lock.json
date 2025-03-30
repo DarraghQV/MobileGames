@@ -10,15 +10,17 @@
       },
       "url": "https://packages.unity.com"
     },
-    "com.unity.collab-proxy": {
-      "version": "2.6.0",
+    "com.unity.ads": {
+      "version": "4.12.0",
       "depth": 0,
       "source": "registry",
-      "dependencies": {},
+      "dependencies": {
+        "com.unity.ugui": "1.0.0"
+      },
       "url": "https://packages.unity.com"
     },
-    "com.unity.device-simulator.devices": {
-      "version": "1.0.0",
+    "com.unity.collab-proxy": {
+      "version": "2.6.0",
       "depth": 0,
       "source": "registry",
       "dependencies": {},

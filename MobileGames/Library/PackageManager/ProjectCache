@@ -1,33 +1,153 @@
 m_ProjectFiles:
   m_ManifestFileStatus:
-    m_FilePath: C:/Users/Darragh/Documents/MobileGames/MobileGames/Packages/manifest.json
+    m_FilePath: C:/Users/Darragh/Documents/GitHub/MobileGames/MobileGames/Packages/manifest.json
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638785319756904958
-    m_Hash: 2136953573
+      ticks: 638789593647340584
+    m_Hash: 3491175003
   m_LockFileStatus:
-    m_FilePath: C:/Users/Darragh/Documents/MobileGames/MobileGames/Packages/packages-lock.json
+    m_FilePath: C:/Users/Darragh/Documents/GitHub/MobileGames/MobileGames/Packages/packages-lock.json
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638785319756915296
-    m_Hash: 3752134237
+      ticks: 638789593647421009
+    m_Hash: 284573432
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
 m_LocalPackages:
   m_LocalFileStatus: []
-m_ProjectPath: C:/Users/Darragh/Documents/MobileGames/MobileGames/Packages
+m_ProjectPath: C:/Users/Darragh/Documents/GitHub/MobileGames/MobileGames/Packages
 m_EditorVersion: 2022.3.33f1 (b2c853adf198)
 m_ResolvedPackages:
+- packageId: com.unity.ads@4.12.0
+  testable: 0
+  isDirectDependency: 1
+  version: 4.12.0
+  source: 1
+  resolvedPath: C:\Users\Darragh\Documents\GitHub\MobileGames\MobileGames\Library\PackageCache\com.unity.ads@4.12.0
+  assetPath: Packages/com.unity.ads
+  name: com.unity.ads
+  displayName: Advertisement Legacy
+  author:
+    name: 
+    email: 
+    url: 
+  category: 
+  type: assets
+  description: "Connect your game to the Unity Ads Network for iOS and Android to
+    quickly and effectively monetize your games.\n\nNOTE: Unity has joined forces
+    with ironSource and recommends using Unity LevelPlay for ad mediation (instead
+    of this package). \n\nThis package will still be supported but no longer updated.
+    To install Unity LevelPlay, use the Ads Mediation package (available below) or
+    the LevelPlay plugin-in at https://developers.is.com/ironsource-mobile/unity/unity-plugin/.\n\nSupported
+    platforms:\n- Android\n- iOS\n"
+  status: 0
+  errors: []
+  versions:
+    all:
+    - 0.0.3
+    - 0.0.4
+    - 0.0.5
+    - 0.0.6
+    - 0.0.7
+    - 0.0.8
+    - 0.0.10
+    - 0.0.11
+    - 0.0.12
+    - 0.0.13
+    - 0.0.14
+    - 0.0.15
+    - 0.0.16
+    - 2.0.0
+    - 2.0.3
+    - 2.0.4
+    - 2.0.7
+    - 2.0.8
+    - 2.3.1
+    - 2.3.2
+    - 3.0.1
+    - 3.0.2
+    - 3.0.3
+    - 3.1.1
+    - 3.2.0
+    - 3.3.0
+    - 3.3.1
+    - 3.4.0
+    - 3.4.1
+    - 3.4.2
+    - 3.4.4
+    - 3.4.5
+    - 3.4.7
+    - 3.4.9
+    - 3.5.0
+    - 3.5.2
+    - 3.6.1
+    - 3.7.0
+    - 3.7.1
+    - 3.7.3
+    - 3.7.5
+    - 4.0.0
+    - 4.0.1
+    - 4.1.0
+    - 4.2.1
+    - 4.3.0
+    - 4.4.1
+    - 4.4.2
+    - 4.12.0
+    compatible:
+    - 4.4.2
+    - 4.12.0
+    recommended: 4.12.0
+    deprecated: []
+  dependencies:
+  - name: com.unity.ugui
+    version: 1.0.0
+  resolvedDependencies:
+  - name: com.unity.ugui
+    version: 1.0.0
+  - name: com.unity.modules.ui
+    version: 1.0.0
+  - name: com.unity.modules.imgui
+    version: 1.0.0
+  keywords:
+  - ads
+  - unity
+  registry:
+    id: main
+    name: 
+    url: https://packages.unity.com
+    scopes: []
+    isDefault: 1
+    capabilities: 7
+    configSource: 0
+  hideInEditor: 1
+  isAssetStorePackage: 0
+  datePublishedTicks: 638568068510000000
+  documentationUrl: https://docs.unity3d.com/Packages/com.unity.ads@4.12/manual/index.html
+  hasRepository: 1
+  repository:
+    type: git
+    url: https://github.com/Unity-Technologies/unity-ads-sdk.git
+    revision: dbc3d4a1b92606adc83b8bc4c82672512154a792
+    path: 
+  unityLifecycle:
+    version: 4.4.2
+    nextVersion: 
+    recommendedVersion: 4.12.0
+    isDeprecated: 0
+    deprecationMessage: 
+  isDeprecated: 0
+  deprecationMessage: 
+  fingerprint: 
 - packageId: com.unity.collab-proxy@2.6.0
   testable: 0
   isDirectDependency: 1
   version: 2.6.0
   source: 1
-  resolvedPath: C:\Users\Darragh\Documents\MobileGames\MobileGames\Library\PackageCache\com.unity.collab-proxy@2.6.0
+  resolvedPath: C:\Users\Darragh\Documents\GitHub\MobileGames\MobileGames\Library\PackageCache\com.unity.collab-proxy@2.6.0
   assetPath: Packages/com.unity.collab-proxy
   name: com.unity.collab-proxy
   displayName: Version Control
@@ -176,73 +296,12 @@ m_ResolvedPackages:
   isDeprecated: 0
   deprecationMessage: 
   fingerprint: 
-- packageId: com.unity.device-simulator.devices@1.0.0
-  testable: 0
-  isDirectDependency: 1
-  version: 1.0.0
-  source: 1
-  resolvedPath: C:\Users\Darragh\Documents\MobileGames\MobileGames\Library\PackageCache\com.unity.device-simulator.devices@1.0.0
-  assetPath: Packages/com.unity.device-simulator.devices
-  name: com.unity.device-simulator.devices
-  displayName: Device Simulator Devices
-  author:
-    name: 
-    email: 
-    url: 
-  category: 
-  type: asset
-  description: This package contains additional devices for the Device Simulator.
-    Each device has a complete device definition and includes a device overlay. After
-    you install this package, the additional devices are immediately available in
-    the Device Simulator.
-  status: 0
-  errors: []
-  versions:
-    all:
-    - 1.0.0-pre.1
-    - 1.0.0-pre.2
-    - 1.0.0-pre.4
-    - 1.0.0
-    compatible:
-    - 1.0.0
-    recommended: 1.0.0
-    deprecated: []
-  dependencies: []
-  resolvedDependencies: []
-  keywords: []
-  registry:
-    id: main
-    name: 
-    url: https://packages.unity.com
-    scopes: []
-    isDefault: 1
-    capabilities: 7
-    configSource: 0
-  hideInEditor: 1
-  isAssetStorePackage: 0
-  datePublishedTicks: 637810555200000000
-  documentationUrl: 
-  hasRepository: 1
-  repository:
-    type: git
-    url: https://github.cds.internal.unity3d.com/unity/com.unity.device-simulator.devices.git
-    revision: 2e1ffaaea0624daf91ee6c76906fd119dbd584c6
-    path: 
-  unityLifecycle:
-    version: 1.0.0
-    nextVersion: 
-    recommendedVersion: 
-    isDeprecated: 0
-    deprecationMessage: 
-  isDeprecated: 0
-  deprecationMessage: 
-  fingerprint: 
 - packageId: com.unity.feature.mobile@1.0.0
   testable: 0
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: C:\Users\Darragh\Documents\MobileGames\MobileGames\Library\PackageCache\com.unity.feature.mobile@1.0.0
+  resolvedPath: C:\Users\Darragh\Documents\GitHub\MobileGames\MobileGames\Library\PackageCache\com.unity.feature.mobile@1.0.0
   assetPath: Packages/com.unity.feature.mobile
   name: com.unity.feature.mobile
   displayName: Mobile
@@ -320,7 +379,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 3.0.28
   source: 1
-  resolvedPath: C:\Users\Darragh\Documents\MobileGames\MobileGames\Library\PackageCache\com.unity.ide.rider@3.0.28
+  resolvedPath: C:\Users\Darragh\Documents\GitHub\MobileGames\MobileGames\Library\PackageCache\com.unity.ide.rider@3.0.28
   assetPath: Packages/com.unity.ide.rider
   name: com.unity.ide.rider
   displayName: JetBrains Rider Editor
@@ -428,7 +487,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 2.0.22
   source: 1
-  resolvedPath: C:\Users\Darragh\Documents\MobileGames\MobileGames\Library\PackageCache\com.unity.ide.visualstudio@2.0.22
+  resolvedPath: C:\Users\Darragh\Documents\GitHub\MobileGames\MobileGames\Library\PackageCache\com.unity.ide.visualstudio@2.0.22
   assetPath: Packages/com.unity.ide.visualstudio
   name: com.unity.ide.visualstudio
   displayName: Visual Studio Editor
@@ -469,9 +528,11 @@ m_ResolvedPackages:
     - 2.0.20
     - 2.0.21
     - 2.0.22
+    - 2.0.23
     compatible:
     - 2.0.22
-    recommended: 2.0.22
+    - 2.0.23
+    recommended: 2.0.23
     deprecated: []
   dependencies:
   - name: com.unity.test-framework
@@ -518,7 +579,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.2.5
   source: 1
-  resolvedPath: C:\Users\Darragh\Documents\MobileGames\MobileGames\Library\PackageCache\com.unity.ide.vscode@1.2.5
+  resolvedPath: C:\Users\Darragh\Documents\GitHub\MobileGames\MobileGames\Library\PackageCache\com.unity.ide.vscode@1.2.5
   assetPath: Packages/com.unity.ide.vscode
   name: com.unity.ide.vscode
   displayName: Visual Studio Code Editor
@@ -587,7 +648,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.1.33
   source: 1
-  resolvedPath: C:\Users\Darragh\Documents\MobileGames\MobileGames\Library\PackageCache\com.unity.test-framework@1.1.33
+  resolvedPath: C:\Users\Darragh\Documents\GitHub\MobileGames\MobileGames\Library\PackageCache\com.unity.test-framework@1.1.33
   assetPath: Packages/com.unity.test-framework
   name: com.unity.test-framework
   displayName: Test Framework
@@ -729,7 +790,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 3.0.6
   source: 1
-  resolvedPath: C:\Users\Darragh\Documents\MobileGames\MobileGames\Library\PackageCache\com.unity.textmeshpro@3.0.6
+  resolvedPath: C:\Users\Darragh\Documents\GitHub\MobileGames\MobileGames\Library\PackageCache\com.unity.textmeshpro@3.0.6
   assetPath: Packages/com.unity.textmeshpro
   name: com.unity.textmeshpro
   displayName: TextMeshPro
@@ -929,7 +990,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.7.6
   source: 1
-  resolvedPath: C:\Users\Darragh\Documents\MobileGames\MobileGames\Library\PackageCache\com.unity.timeline@1.7.6
+  resolvedPath: C:\Users\Darragh\Documents\GitHub\MobileGames\MobileGames\Library\PackageCache\com.unity.timeline@1.7.6
   assetPath: Packages/com.unity.timeline
   name: com.unity.timeline
   displayName: Timeline
@@ -1103,7 +1164,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: C:\Users\Darragh\Documents\MobileGames\MobileGames\Library\PackageCache\com.unity.ugui@1.0.0
+  resolvedPath: C:\Users\Darragh\Documents\GitHub\MobileGames\MobileGames\Library\PackageCache\com.unity.ugui@1.0.0
   assetPath: Packages/com.unity.ugui
   name: com.unity.ugui
   displayName: Unity UI
@@ -1176,7 +1237,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.9.4
   source: 1
-  resolvedPath: C:\Users\Darragh\Documents\MobileGames\MobileGames\Library\PackageCache\com.unity.visualscripting@1.9.4
+  resolvedPath: C:\Users\Darragh\Documents\GitHub\MobileGames\MobileGames\Library\PackageCache\com.unity.visualscripting@1.9.4
   assetPath: Packages/com.unity.visualscripting
   name: com.unity.visualscripting
   displayName: Visual Scripting
@@ -1279,7 +1340,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: C:\Users\Darragh\Documents\MobileGames\MobileGames\Library\PackageCache\com.unity.modules.ai@1.0.0
+  resolvedPath: C:\Users\Darragh\Documents\GitHub\MobileGames\MobileGames\Library\PackageCache\com.unity.modules.ai@1.0.0
   assetPath: Packages/com.unity.modules.ai
   name: com.unity.modules.ai
   displayName: AI
@@ -1335,7 +1396,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: C:\Users\Darragh\Documents\MobileGames\MobileGames\Library\PackageCache\com.unity.modules.androidjni@1.0.0
+  resolvedPath: C:\Users\Darragh\Documents\GitHub\MobileGames\MobileGames\Library\PackageCache\com.unity.modules.androidjni@1.0.0
   assetPath: Packages/com.unity.modules.androidjni
   name: com.unity.modules.androidjni
   displayName: Android JNI
@@ -1390,7 +1451,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: C:\Users\Darragh\Documents\MobileGames\MobileGames\Library\PackageCache\com.unity.modules.animation@1.0.0
+  resolvedPath: C:\Users\Darragh\Documents\GitHub\MobileGames\MobileGames\Library\PackageCache\com.unity.modules.animation@1.0.0
   assetPath: Packages/com.unity.modules.animation
   name: com.unity.modules.animation
   displayName: Animation
@@ -1446,7 +1507,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: C:\Users\Darragh\Documents\MobileGames\MobileGames\Library\PackageCache\com.unity.modules.assetbundle@1.0.0
+  resolvedPath: C:\Users\Darragh\Documents\GitHub\MobileGames\MobileGames\Library\PackageCache\com.unity.modules.assetbundle@1.0.0
   assetPath: Packages/com.unity.modules.assetbundle
   name: com.unity.modules.assetbundle
   displayName: Asset Bundle
@@ -1502,7 +1563,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: C:\Users\Darragh\Documents\MobileGames\MobileGames\Library\PackageCache\com.unity.modules.audio@1.0.0
+  resolvedPath: C:\Users\Darragh\Documents\GitHub\MobileGames\MobileGames\Library\PackageCache\com.unity.modules.audio@1.0.0
   assetPath: Packages/com.unity.modules.audio
   name: com.unity.modules.audio
   displayName: Audio
@@ -1558,7 +1619,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: C:\Users\Darragh\Documents\MobileGames\MobileGames\Library\PackageCache\com.unity.modules.cloth@1.0.0
+  resolvedPath: C:\Users\Darragh\Documents\GitHub\MobileGames\MobileGames\Library\PackageCache\com.unity.modules.cloth@1.0.0
   assetPath: Packages/com.unity.modules.cloth
   name: com.unity.modules.cloth
   displayName: Cloth
@@ -1618,7 +1679,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: C:\Users\Darragh\Documents\MobileGames\MobileGames\Library\PackageCache\com.unity.modules.director@1.0.0
+  resolvedPath: C:\Users\Darragh\Documents\GitHub\MobileGames\MobileGames\Library\PackageCache\com.unity.modules.director@1.0.0
   assetPath: Packages/com.unity.modules.director
   name: com.unity.modules.director
   displayName: Director
@@ -1682,7 +1743,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: C:\Users\Darragh\Documents\MobileGames\MobileGames\Library\PackageCache\com.unity.modules.imageconversion@1.0.0
+  resolvedPath: C:\Users\Darragh\Documents\GitHub\MobileGames\MobileGames\Library\PackageCache\com.unity.modules.imageconversion@1.0.0
   assetPath: Packages/com.unity.modules.imageconversion
   name: com.unity.modules.imageconversion
   displayName: Image Conversion
@@ -1739,7 +1800,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: C:\Users\Darragh\Documents\MobileGames\MobileGames\Library\PackageCache\com.unity.modules.imgui@1.0.0
+  resolvedPath: C:\Users\Darragh\Documents\GitHub\MobileGames\MobileGames\Library\PackageCache\com.unity.modules.imgui@1.0.0
   assetPath: Packages/com.unity.modules.imgui
   name: com.unity.modules.imgui
   displayName: IMGUI
@@ -1795,7 +1856,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: C:\Users\Darragh\Documents\MobileGames\MobileGames\Library\PackageCache\com.unity.modules.jsonserialize@1.0.0
+  resolvedPath: C:\Users\Darragh\Documents\GitHub\MobileGames\MobileGames\Library\PackageCache\com.unity.modules.jsonserialize@1.0.0
   assetPath: Packages/com.unity.modules.jsonserialize
   name: com.unity.modules.jsonserialize
   displayName: JSONSerialize
@@ -1851,7 +1912,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: C:\Users\Darragh\Documents\MobileGames\MobileGames\Library\PackageCache\com.unity.modules.particlesystem@1.0.0
+  resolvedPath: C:\Users\Darragh\Documents\GitHub\MobileGames\MobileGames\Library\PackageCache\com.unity.modules.particlesystem@1.0.0
   assetPath: Packages/com.unity.modules.particlesystem
   name: com.unity.modules.particlesystem
   displayName: Particle System
@@ -1907,7 +1968,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: C:\Users\Darragh\Documents\MobileGames\MobileGames\Library\PackageCache\com.unity.modules.physics@1.0.0
+  resolvedPath: C:\Users\Darragh\Documents\GitHub\MobileGames\MobileGames\Library\PackageCache\com.unity.modules.physics@1.0.0
   assetPath: Packages/com.unity.modules.physics
   name: com.unity.modules.physics
   displayName: Physics
@@ -1963,7 +2024,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: C:\Users\Darragh\Documents\MobileGames\MobileGames\Library\PackageCache\com.unity.modules.physics2d@1.0.0
+  resolvedPath: C:\Users\Darragh\Documents\GitHub\MobileGames\MobileGames\Library\PackageCache\com.unity.modules.physics2d@1.0.0
   assetPath: Packages/com.unity.modules.physics2d
   name: com.unity.modules.physics2d
   displayName: Physics 2D
@@ -2019,7 +2080,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: C:\Users\Darragh\Documents\MobileGames\MobileGames\Library\PackageCache\com.unity.modules.screencapture@1.0.0
+  resolvedPath: C:\Users\Darragh\Documents\GitHub\MobileGames\MobileGames\Library\PackageCache\com.unity.modules.screencapture@1.0.0
   assetPath: Packages/com.unity.modules.screencapture
   name: com.unity.modules.screencapture
   displayName: Screen Capture
@@ -2079,7 +2140,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: C:\Users\Darragh\Documents\MobileGames\MobileGames\Library\PackageCache\com.unity.modules.terrain@1.0.0
+  resolvedPath: C:\Users\Darragh\Documents\GitHub\MobileGames\MobileGames\Library\PackageCache\com.unity.modules.terrain@1.0.0
   assetPath: Packages/com.unity.modules.terrain
   name: com.unity.modules.terrain
   displayName: Terrain
@@ -2135,7 +2196,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: C:\Users\Darragh\Documents\MobileGames\MobileGames\Library\PackageCache\com.unity.modules.terrainphysics@1.0.0
+  resolvedPath: C:\Users\Darragh\Documents\GitHub\MobileGames\MobileGames\Library\PackageCache\com.unity.modules.terrainphysics@1.0.0
   assetPath: Packages/com.unity.modules.terrainphysics
   name: com.unity.modules.terrainphysics
   displayName: Terrain Physics
@@ -2199,7 +2260,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: C:\Users\Darragh\Documents\MobileGames\MobileGames\Library\PackageCache\com.unity.modules.tilemap@1.0.0
+  resolvedPath: C:\Users\Darragh\Documents\GitHub\MobileGames\MobileGames\Library\PackageCache\com.unity.modules.tilemap@1.0.0
   assetPath: Packages/com.unity.modules.tilemap
   name: com.unity.modules.tilemap
   displayName: Tilemap
@@ -2258,7 +2319,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: C:\Users\Darragh\Documents\MobileGames\MobileGames\Library\PackageCache\com.unity.modules.ui@1.0.0
+  resolvedPath: C:\Users\Darragh\Documents\GitHub\MobileGames\MobileGames\Library\PackageCache\com.unity.modules.ui@1.0.0
   assetPath: Packages/com.unity.modules.ui
   name: com.unity.modules.ui
   displayName: UI
@@ -2314,7 +2375,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: C:\Users\Darragh\Documents\MobileGames\MobileGames\Library\PackageCache\com.unity.modules.uielements@1.0.0
+  resolvedPath: C:\Users\Darragh\Documents\GitHub\MobileGames\MobileGames\Library\PackageCache\com.unity.modules.uielements@1.0.0
   assetPath: Packages/com.unity.modules.uielements
   name: com.unity.modules.uielements
   displayName: UIElements
@@ -2382,7 +2443,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: C:\Users\Darragh\Documents\MobileGames\MobileGames\Library\PackageCache\com.unity.modules.umbra@1.0.0
+  resolvedPath: C:\Users\Darragh\Documents\GitHub\MobileGames\MobileGames\Library\PackageCache\com.unity.modules.umbra@1.0.0
   assetPath: Packages/com.unity.modules.umbra
   name: com.unity.modules.umbra
   displayName: Umbra
@@ -2438,7 +2499,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: C:\Users\Darragh\Documents\MobileGames\MobileGames\Library\PackageCache\com.unity.modules.unityanalytics@1.0.0
+  resolvedPath: C:\Users\Darragh\Documents\GitHub\MobileGames\MobileGames\Library\PackageCache\com.unity.modules.unityanalytics@1.0.0
   assetPath: Packages/com.unity.modules.unityanalytics
   name: com.unity.modules.unityanalytics
   displayName: Unity Analytics
@@ -2502,7 +2563,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: C:\Users\Darragh\Documents\MobileGames\MobileGames\Library\PackageCache\com.unity.modules.unitywebrequest@1.0.0
+  resolvedPath: C:\Users\Darragh\Documents\GitHub\MobileGames\MobileGames\Library\PackageCache\com.unity.modules.unitywebrequest@1.0.0
   assetPath: Packages/com.unity.modules.unitywebrequest
   name: com.unity.modules.unitywebrequest
   displayName: Unity Web Request
@@ -2558,7 +2619,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: C:\Users\Darragh\Documents\MobileGames\MobileGames\Library\PackageCache\com.unity.modules.unitywebrequestassetbundle@1.0.0
+  resolvedPath: C:\Users\Darragh\Documents\GitHub\MobileGames\MobileGames\Library\PackageCache\com.unity.modules.unitywebrequestassetbundle@1.0.0
   assetPath: Packages/com.unity.modules.unitywebrequestassetbundle
   name: com.unity.modules.unitywebrequestassetbundle
   displayName: Unity Web Request Asset Bundle
@@ -2622,7 +2683,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: C:\Users\Darragh\Documents\MobileGames\MobileGames\Library\PackageCache\com.unity.modules.unitywebrequestaudio@1.0.0
+  resolvedPath: C:\Users\Darragh\Documents\GitHub\MobileGames\MobileGames\Library\PackageCache\com.unity.modules.unitywebrequestaudio@1.0.0
   assetPath: Packages/com.unity.modules.unitywebrequestaudio
   name: com.unity.modules.unitywebrequestaudio
   displayName: Unity Web Request Audio
@@ -2686,7 +2747,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: C:\Users\Darragh\Documents\MobileGames\MobileGames\Library\PackageCache\com.unity.modules.unitywebrequesttexture@1.0.0
+  resolvedPath: C:\Users\Darragh\Documents\GitHub\MobileGames\MobileGames\Library\PackageCache\com.unity.modules.unitywebrequesttexture@1.0.0
   assetPath: Packages/com.unity.modules.unitywebrequesttexture
   name: com.unity.modules.unitywebrequesttexture
   displayName: Unity Web Request Texture
@@ -2750,7 +2811,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: C:\Users\Darragh\Documents\MobileGames\MobileGames\Library\PackageCache\com.unity.modules.unitywebrequestwww@1.0.0
+  resolvedPath: C:\Users\Darragh\Documents\GitHub\MobileGames\MobileGames\Library\PackageCache\com.unity.modules.unitywebrequestwww@1.0.0
   assetPath: Packages/com.unity.modules.unitywebrequestwww
   name: com.unity.modules.unitywebrequestwww
   displayName: Unity Web Request WWW
@@ -2830,7 +2891,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: C:\Users\Darragh\Documents\MobileGames\MobileGames\Library\PackageCache\com.unity.modules.vehicles@1.0.0
+  resolvedPath: C:\Users\Darragh\Documents\GitHub\MobileGames\MobileGames\Library\PackageCache\com.unity.modules.vehicles@1.0.0
   assetPath: Packages/com.unity.modules.vehicles
   name: com.unity.modules.vehicles
   displayName: Vehicles
@@ -2890,7 +2951,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: C:\Users\Darragh\Documents\MobileGames\MobileGames\Library\PackageCache\com.unity.modules.video@1.0.0
+  resolvedPath: C:\Users\Darragh\Documents\GitHub\MobileGames\MobileGames\Library\PackageCache\com.unity.modules.video@1.0.0
   assetPath: Packages/com.unity.modules.video
   name: com.unity.modules.video
   displayName: Video
@@ -2958,7 +3019,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: C:\Users\Darragh\Documents\MobileGames\MobileGames\Library\PackageCache\com.unity.modules.vr@1.0.0
+  resolvedPath: C:\Users\Darragh\Documents\GitHub\MobileGames\MobileGames\Library\PackageCache\com.unity.modules.vr@1.0.0
   assetPath: Packages/com.unity.modules.vr
   name: com.unity.modules.vr
   displayName: VR
@@ -3028,7 +3089,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: C:\Users\Darragh\Documents\MobileGames\MobileGames\Library\PackageCache\com.unity.modules.wind@1.0.0
+  resolvedPath: C:\Users\Darragh\Documents\GitHub\MobileGames\MobileGames\Library\PackageCache\com.unity.modules.wind@1.0.0
   assetPath: Packages/com.unity.modules.wind
   name: com.unity.modules.wind
   displayName: Wind
@@ -3084,7 +3145,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: C:\Users\Darragh\Documents\MobileGames\MobileGames\Library\PackageCache\com.unity.modules.xr@1.0.0
+  resolvedPath: C:\Users\Darragh\Documents\GitHub\MobileGames\MobileGames\Library\PackageCache\com.unity.modules.xr@1.0.0
   assetPath: Packages/com.unity.modules.xr
   name: com.unity.modules.xr
   displayName: XR
@@ -3152,7 +3213,7 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 1.0.0
   source: 2
-  resolvedPath: C:\Users\Darragh\Documents\MobileGames\MobileGames\Library\PackageCache\com.unity.modules.subsystems@1.0.0
+  resolvedPath: C:\Users\Darragh\Documents\GitHub\MobileGames\MobileGames\Library\PackageCache\com.unity.modules.subsystems@1.0.0
   assetPath: Packages/com.unity.modules.subsystems
   name: com.unity.modules.subsystems
   displayName: Subsystems
@@ -3212,7 +3273,7 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 1.0.6
   source: 1
-  resolvedPath: C:\Users\Darragh\Documents\MobileGames\MobileGames\Library\PackageCache\com.unity.ext.nunit@1.0.6
+  resolvedPath: C:\Users\Darragh\Documents\GitHub\MobileGames\MobileGames\Library\PackageCache\com.unity.ext.nunit@1.0.6
   assetPath: Packages/com.unity.ext.nunit
   name: com.unity.ext.nunit
   displayName: Custom NUnit
@@ -3284,7 +3345,7 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 1.4.2
   source: 1
-  resolvedPath: C:\Users\Darragh\Documents\MobileGames\MobileGames\Library\PackageCache\com.unity.mobile.android-logcat@1.4.2
+  resolvedPath: C:\Users\Darragh\Documents\GitHub\MobileGames\MobileGames\Library\PackageCache\com.unity.mobile.android-logcat@1.4.2
   assetPath: Packages/com.unity.mobile.android-logcat
   name: com.unity.mobile.android-logcat
   displayName: Android Logcat
@@ -3368,7 +3429,7 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 4.0.1
   source: 1
-  resolvedPath: C:\Users\Darragh\Documents\MobileGames\MobileGames\Library\PackageCache\com.unity.adaptiveperformance@4.0.1
+  resolvedPath: C:\Users\Darragh\Documents\GitHub\MobileGames\MobileGames\Library\PackageCache\com.unity.adaptiveperformance@4.0.1
   assetPath: Packages/com.unity.adaptiveperformance
   name: com.unity.adaptiveperformance
   displayName: Adaptive Performance
@@ -3522,7 +3583,7 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 2.3.2
   source: 1
-  resolvedPath: C:\Users\Darragh\Documents\MobileGames\MobileGames\Library\PackageCache\com.unity.mobile.notifications@2.3.2
+  resolvedPath: C:\Users\Darragh\Documents\GitHub\MobileGames\MobileGames\Library\PackageCache\com.unity.mobile.notifications@2.3.2
   assetPath: Packages/com.unity.mobile.notifications
   name: com.unity.mobile.notifications
   displayName: Mobile Notifications
@@ -3635,7 +3696,7 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 1.0.2
   source: 1
-  resolvedPath: C:\Users\Darragh\Documents\MobileGames\MobileGames\Library\PackageCache\com.unity.profiling.core@1.0.2
+  resolvedPath: C:\Users\Darragh\Documents\GitHub\MobileGames\MobileGames\Library\PackageCache\com.unity.profiling.core@1.0.2
   assetPath: Packages/com.unity.profiling.core
   name: com.unity.profiling.core
   displayName: Unity Profiling Core API
@@ -3699,7 +3760,7 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 1.1.1
   source: 1
-  resolvedPath: C:\Users\Darragh\Documents\MobileGames\MobileGames\Library\PackageCache\com.unity.subsystemregistration@1.1.1
+  resolvedPath: C:\Users\Darragh\Documents\GitHub\MobileGames\MobileGames\Library\PackageCache\com.unity.subsystemregistration@1.1.1
   assetPath: Packages/com.unity.subsystemregistration
   name: com.unity.subsystemregistration
   displayName: Subsystem Registration
