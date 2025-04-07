@@ -372,7 +372,7 @@
 -analyzer:"C:/Program Files/Unity/Hub/Editor/2022.3.33f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.Properties.SourceGenerator.dll"
 -analyzer:"C:/Program Files/Unity/Hub/Editor/2022.3.33f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.SourceGenerators.dll"
 "Assets/AdsInitialzer.cs"
-"Assets/Banner.cs"
+"Assets/BannerAdMob.cs"
 "Assets/Interstitial.cs"
 "Assets/RewardedAdsButton.cs"
 "Assets/Scripts/CubeScript.cs"
