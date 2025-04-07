@@ -5,16 +5,16 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638789593647340584
-    m_Hash: 3491175003
+      ticks: 638796545697968195
+    m_Hash: 1961419963
   m_LockFileStatus:
     m_FilePath: C:/Users/Darragh/Documents/GitHub/MobileGames/MobileGames/Packages/packages-lock.json
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638789593647421009
-    m_Hash: 284573432
+      ticks: 638796545698043447
+    m_Hash: 3841555668
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
 m_LocalPackages:
@@ -22,6 +22,73 @@ m_LocalPackages:
 m_ProjectPath: C:/Users/Darragh/Documents/GitHub/MobileGames/MobileGames/Packages
 m_EditorVersion: 2022.3.33f1 (b2c853adf198)
 m_ResolvedPackages:
+- packageId: com.google.external-dependency-manager@https://github.com/googlesamples/unity-jar-resolver.git?path=upm
+  testable: 0
+  isDirectDependency: 1
+  version: 1.2.185
+  source: 5
+  resolvedPath: C:\Users\Darragh\Documents\GitHub\MobileGames\MobileGames\Library\PackageCache\com.google.external-dependency-manager@8cf54b63e3
+  assetPath: Packages/com.google.external-dependency-manager
+  name: com.google.external-dependency-manager
+  displayName: External Dependency Manager for Unity
+  author:
+    name: Google LLC
+    email: 
+    url: https://github.com/googlesamples/unity-jar-resolver
+  category: 
+  type: 
+  description: External Dependency Manager for Unity (EDM4U) can be used by any Unity
+    plugin that requires Android specific libraries (e.g. AARs), iOS CocoaPods, version
+    management of transitive dependencies, and/or management of Unity Package Manager
+    registries.
+  status: 0
+  errors: []
+  versions:
+    all: []
+    compatible: []
+    recommended: 
+    deprecated: []
+  dependencies: []
+  resolvedDependencies: []
+  keywords:
+  - Google
+  - Android
+  - Gradle
+  - Cocoapods
+  - Dependency
+  - Unity Package Manager
+  - Unity
+  - vh-name:play-services-resolver
+  - vh-name:unity-jar-resolver
+  - vh-name:external-dependency-manager
+  - vh-name:External Dependency Manager for Unity
+  registry:
+    id: main
+    name: 
+    url: https://packages.unity.com
+    scopes: []
+    isDefault: 1
+    capabilities: 7
+    configSource: 0
+  hideInEditor: 1
+  isAssetStorePackage: 0
+  datePublishedTicks: 0
+  documentationUrl: 
+  hasRepository: 0
+  repository:
+    type: 
+    url: 
+    revision: 
+    path: 
+  unityLifecycle:
+    version: 
+    nextVersion: 
+    recommendedVersion: 
+    isDeprecated: 0
+    deprecationMessage: 
+  isDeprecated: 0
+  deprecationMessage: 
+  fingerprint: 
 - packageId: com.unity.ads@4.12.0
   testable: 0
   isDirectDependency: 1

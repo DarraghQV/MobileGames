@@ -128,6 +128,12 @@
 -define:MODULE_PARTICLE_SYSTEM_EXISTS
 -define:CSHARP_7_OR_LATER
 -define:CSHARP_7_3_OR_NEWER
+-r:"Assets/GoogleMobileAds/GoogleMobileAds.Common.dll"
+-r:"Assets/GoogleMobileAds/GoogleMobileAds.Core.dll"
+-r:"Assets/GoogleMobileAds/GoogleMobileAds.dll"
+-r:"Assets/GoogleMobileAds/GoogleMobileAds.Ump.dll"
+-r:"Assets/GoogleMobileAds/GoogleMobileAds.Ump.Unity.dll"
+-r:"Assets/GoogleMobileAds/GoogleMobileAds.Unity.dll"
 -r:"Assets/MobileDependencyResolver/Editor/Google.JarResolver.dll"
 -r:"Assets/MobileDependencyResolver/Editor/Google.VersionHandler.dll"
 -r:"Assets/MobileDependencyResolver/Editor/Google.VersionHandlerImpl.dll"

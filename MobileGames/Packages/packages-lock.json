@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.google.external-dependency-manager": {
+      "version": "https://github.com/googlesamples/unity-jar-resolver.git?path=upm",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "8cf54b63e37dceaf1630135f9abddf08167500a1"
+    },
     "com.unity.adaptiveperformance": {
       "version": "4.0.1",
       "depth": 1,
