@@ -713,8 +713,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ignoreLayerMask:
     serializedVersion: 2
-    m_Bits: 64
-  shapePrefabs: []
+    m_Bits: 0
+  shapePrefabs:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   spawnInterval: 2
   spawnHeight: 8
   spawnXRange: {x: -2, y: 2}
@@ -722,6 +725,13 @@ MonoBehaviour:
   platform: {fileID: 1357700028}
   platformSpeed: 1.5
   platformRange: 5
+  scoreText: {fileID: 0}
+  timeText: {fileID: 0}
+  gameOverPanel: {fileID: 0}
+  finalScoreText: {fileID: 0}
+  finalTimeText: {fileID: 0}
+  googleAppsScriptURL: https://script.google.com/macros/s/AKfycbzDG1WFeKH8IIPyHvp8nnwHrxSRjq5IhRbqTpdPKjaS2HC_xxzzLfSVuimgu4BDNbDC/exec
+  secretKey: DQSECRETKEY
 --- !u!4 &1442088083
 Transform:
   m_ObjectHideFlags: 0

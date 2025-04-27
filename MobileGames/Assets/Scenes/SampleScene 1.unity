@@ -2539,6 +2539,8 @@ MonoBehaviour:
   gameOverPanel: {fileID: 1906233581}
   finalScoreText: {fileID: 494270242}
   finalTimeText: {fileID: 84586428}
+  googleAppsScriptURL: https://script.google.com/macros/s/AKfycbzDG1WFeKH8IIPyHvp8nnwHrxSRjq5IhRbqTpdPKjaS2HC_xxzzLfSVuimgu4BDNbDC/exec
+  secretKey: DQSECRETKEY
 --- !u!4 &1442088083
 Transform:
   m_ObjectHideFlags: 0
