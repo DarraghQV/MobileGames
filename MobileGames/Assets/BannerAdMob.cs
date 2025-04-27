@@ -14,7 +14,7 @@ public class BannerAdManager : MonoBehaviour
     [SerializeField] bool _verboseLogging = true;
 
     [Header("Ad Settings")]
-    [SerializeField] AdPosition _bannerPosition = AdPosition.Bottom;
+    [SerializeField] AdPosition _bannerPosition = AdPosition.Top;
 
 #if UNITY_ANDROID
     private string _adUnitId = "ca-app-pub-9816783354168039~5042949826";
