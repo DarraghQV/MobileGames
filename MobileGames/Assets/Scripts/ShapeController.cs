@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ShapeController : MonoBehaviour, iTouchable
+public class ShapeController : MonoBehaviour
 {
     private Rigidbody _rb;
     private bool _isOnPlatform;

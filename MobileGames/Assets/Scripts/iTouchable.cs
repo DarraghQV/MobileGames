@@ -1,12 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
-    interface iTouchable
-    {
-      void SelectToggle(bool isSelected);
-      void MoveObject(Touch touch, Camera mainCamera);
-      void ScaleObject(float scaleFactor);
-      void RotateObject(Vector2 rotationDelta);
-      void ChangeColor(Color color);
+public interface iTouchable
+{
+    void SelectToggle(bool isSelected);
+    void MoveObject(Touch touch, Camera mainCamera);
+
+    void ScaleObject(Touch touch1, Touch touch2);
+    void RotateObject(Touch touch1, Touch touch2);
+
+    void ChangeColor(Color color);
 }

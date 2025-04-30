@@ -1,21 +1,18 @@
+// --- Full FILE GameManager.cs ---
+
 using UnityEngine;
 using TMPro;
 using UnityEngine.Networking; // Required for web requests
 using System.Collections;    // Required for Coroutines
 using System.Text;          // Required for JSON encoding
 
-// Make sure iTouchable.cs exists and defines the interface correctly
-// public interface iTouchable { ... } // Definition should be in iTouchable.cs
-
 public class GameManager : MonoBehaviour
 {
-    // --- Original Variables ---
+    // --- Variables ---
     private iTouchable selectedObject;     // The currently selected object (set by TrySelectObject)
     private Transform selectedTransform; // Transform of the selected object
     private Camera mainCamera;
-    public LayerMask ignoreLayerMask;
-    private float verticalRotationLimit = 80f;
-    private float currentVerticalRotation = 0f;
+    public LayerMask ignoreLayerMask; // Make sure this is set correctly in the Inspector!
     private float initialDistance;       // For pinch scaling/rotation
     private Vector3 initialScale;        // For pinch scaling
 
@@ -27,9 +24,7 @@ public class GameManager : MonoBehaviour
     public Vector2 sizeRange = new Vector2(0.7f, 1.3f);
 
     [Header("Platform Settings")]
-    public Transform platform;
-    public float platformSpeed = 1.5f;
-    public float platformRange = 5f;
+    public Transform platform; // Reference needed for spawning position
 
     [Header("UI Settings")]
     public TMP_Text scoreText;
@@ -66,14 +61,14 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         mainCamera = Camera.main;
+        if (mainCamera == null) Debug.LogError("GameManager: Main Camera not found!");
+
         InvokeRepeating("SpawnShape", 0f, spawnInterval);
         gameOverPanel.SetActive(false);
         UpdateUI();
     }
 
-    // --- Updated Update Loop ---
-    // Relies on GestureManager for selection/deselection calls
-    // Handles manipulation *if* an object is selected
+    // --- Update Loop ---
     void Update()
     {
         if (isGameOver) return;
@@ -84,7 +79,7 @@ public class GameManager : MonoBehaviour
             if (Input.touchCount == 1)
             {
                 // Handle single-touch movement of the selected object
-                HandleSingleTouchMovement(); // Renamed for clarity
+                HandleSingleTouchMovement();
             }
             else if (Input.touchCount >= 2)
             {
@@ -92,20 +87,7 @@ public class GameManager : MonoBehaviour
                 HandleObjectManipulation();
             }
         }
-        // --- Camera/Platform Logic (Only if NO object is selected) ---
-        else // selectedObject == null
-        {
-            if (Input.touchCount >= 2)
-            {
-                // Rotate camera if 2+ touches and no object selected
-                RotateCamera();
-            }
-            else if (Input.touchCount == 1)
-            {
-                // Move platform if 1 touch and no object selected
-                MovePlatformWithTouch();
-            }
-        }
+        // --- Camera/Platform Logic is Handled by CameraController ---
 
         // --- Game Logic ---
         gameTime += Time.deltaTime;
@@ -117,44 +99,41 @@ public class GameManager : MonoBehaviour
         }
         UpdateUI();
     }
-    // --- End Updated Update Loop ---
+    // --- End Update Loop ---
 
 
     void SpawnShape()
     {
         if (isGameOver || shapePrefabs == null || shapePrefabs.Length == 0) return;
+        if (platform == null)
+        {
+            Debug.LogError("GameManager: Platform reference is missing, cannot determine spawn position!");
+            return;
+        }
         Vector3 spawnPos = new Vector3(
             platform.position.x + Random.Range(spawnXRange.x, spawnXRange.y),
             platform.position.y + spawnHeight,
-            platform.position.z
+            platform.position.z // Assuming Z is consistent with platform
         );
         // Ensure prefabs have ShapeController and Rigidbody
         GameObject newShape = Instantiate(
             shapePrefabs[Random.Range(0, shapePrefabs.Length)], spawnPos, Random.rotation
         );
         newShape.transform.localScale *= Random.Range(sizeRange.x, sizeRange.y);
-        AddScore(100);
-    }
-
-    void MovePlatformWithTouch() // Called from Update when no object selected
-    {
-        Touch touch = Input.GetTouch(0);
-        float screenMiddle = Screen.width / 2;
-        float direction = touch.position.x < screenMiddle ? -1f : 1f;
-        float newX = Mathf.Clamp(platform.position.x + direction * platformSpeed * Time.deltaTime, -platformRange, platformRange);
-        platform.position = new Vector3(newX, platform.position.y, platform.position.z);
+        // AddScore(100); // Scoring moved to collision/goal? Keep if intended on spawn.
     }
 
     public void AddScore(int points)
     {
         if (isGameOver) return;
         score += points;
+        // UpdateUI(); // Called in main Update loop
     }
 
     public void DoubleFinalScore() // Called by Rewarded Ad Button
     {
         if (!isGameOver || _isScoreDoubled) { Debug.LogWarning("Score cannot be doubled now."); return; }
-        if (_finalScore == 0) _finalScore = score;
+        if (_finalScore == 0) _finalScore = score; // Capture score if not already captured
         if (_finalScore == 0 && score == 0) { Debug.LogWarning("Cannot double zero score."); return; }
 
         score = _finalScore * 2;
@@ -166,12 +145,16 @@ public class GameManager : MonoBehaviour
         UpdateFinalScoreText(); // Update UI
     }
 
-    public void UpdateFinalScoreText() // Called by DoubleFinalScore
+    public void UpdateFinalScoreText() // Called by DoubleFinalScore & GameOver
     {
         if (finalScoreText != null)
         {
-            finalScoreText.text = $"Final Score: {score}!";
+            finalScoreText.text = $"Final Score: {score}"; // Use current score (which might be doubled)
             if (_isScoreDoubled) finalScoreText.text += " (x2)";
+        }
+        if (finalTimeText != null) // Also update time here
+        {
+            finalTimeText.text = $"Time: {Mathf.FloorToInt(_finalGameTime)}s";
         }
     }
 
@@ -179,13 +162,14 @@ public class GameManager : MonoBehaviour
     {
         if (!isGameOver)
         {
-            scoreText.text = $"Score: {score}";
-            timeText.text = $"Time: {Mathf.FloorToInt(gameTime)}s";
+            if (scoreText != null) scoreText.text = $"Score: {score}";
+            if (timeText != null) timeText.text = $"Time: {Mathf.FloorToInt(gameTime)}s";
         }
     }
 
     public void ResetGameState() // Called by Restart button/Interstitial Ad
     {
+        Debug.Log("Resetting Game State...");
         score = 0;
         gameTime = 0f;
         timeBonusCounter = 0;
@@ -195,37 +179,38 @@ public class GameManager : MonoBehaviour
         _finalGameTime = 0f;
         DeselectObject(); // Ensure no object is selected
 
-        if (platform != null) platform.position = new Vector3(0f, 2f, 0f);
+        if (platform != null) platform.position = new Vector3(0f, platform.position.y, 0f); // Keep original Y? Adjust if needed
 
         // Clear existing shapes BEFORE resetting UI/TimeScale
         ClearAllBlocks();
 
-        gameOverPanel.SetActive(false);
+        if (gameOverPanel != null) gameOverPanel.SetActive(false);
         UpdateUI();
         Time.timeScale = 1;
 
-        CancelInvoke("SpawnShape");
-        InvokeRepeating("SpawnShape", 0f, spawnInterval);
+        CancelInvoke("SpawnShape"); // Stop old spawner
+        InvokeRepeating("SpawnShape", 0f, spawnInterval); // Start new spawner
     }
 
     public void GameOver() // Called by NetTrigger
     {
         if (isGameOver) return;
+        Debug.Log("GAME OVER triggered!");
         isGameOver = true;
-        _finalScore = score;
+        _finalScore = score;        // Store the score *before* potential doubling
         _finalGameTime = gameTime;
-        _isScoreDoubled = false;
-        DeselectObject(); // Deselect any held object
+        _isScoreDoubled = false;    // Reset double flag for the next game end screen
+        DeselectObject();           // Deselect any held object
 
-        finalScoreText.text = $"Final Score: {score}";
-        finalTimeText.text = $"Time: {Mathf.FloorToInt(gameTime)}s";
-        gameOverPanel.SetActive(true);
-        Time.timeScale = 0;
+        UpdateFinalScoreText();     // Update text with final score/time
+
+        if (gameOverPanel != null) gameOverPanel.SetActive(true);
+        Time.timeScale = 0; // Pause game
 
         Debug.Log("Attempting to send original final score...");
         SendScoreData(_finalScore, _finalGameTime, false); // Send ORIGINAL score
 
-        CancelInvoke("SpawnShape");
+        CancelInvoke("SpawnShape"); // Stop spawning
     }
 
     public void RestartWithoutAd() // Called by plain Restart button
@@ -236,19 +221,33 @@ public class GameManager : MonoBehaviour
     // --- Called by GestureManager ---
     public void TrySelectObject(Vector2 tapPosition)
     {
+        if (mainCamera == null) return; // Safety check
+
         Ray r = mainCamera.ScreenPointToRay(tapPosition);
+        // Draw the ray in the Scene view for visual debugging (lasts 2 seconds)
+        Debug.DrawRay(r.origin, r.direction * 100f, Color.yellow, 2.0f);
+        // Log the attempt, including the mask value being used (inverted from Inspector setting)
+        Debug.Log($"[GameManager.TrySelectObject] Attempting Raycast from {r.origin} dir {r.direction} | LayerMask Used (inverted): {LayerMask.LayerToName(~ignoreLayerMask)} ({(~ignoreLayerMask)}) | Ignoring Mask (Inspector): {LayerMask.LayerToName(ignoreLayerMask)} ({ignoreLayerMask})");
+
+        // Perform the raycast using the INVERTED mask (~ignoreLayerMask)
         if (Physics.Raycast(r, out RaycastHit info, Mathf.Infinity, ~ignoreLayerMask))
         {
-            // IMPORTANT: Use GetComponentInParent or similar if collider is on child
+            // Raycast Hit Something!
+            Debug.Log($"[GameManager.TrySelectObject] Raycast HIT: {info.collider.gameObject.name} on Layer: {LayerMask.LayerToName(info.collider.gameObject.layer)}");
+
+            // Check if the hit object has the iTouchable component (or in parent)
+            // Important: Use GetComponentInParent if collider might be on a child object
             iTouchable newObject = info.collider.GetComponentInParent<iTouchable>();
             if (newObject != null)
             {
-                // If we tapped the same object that might already be selected (e.g., during hold)
+                // Found a touchable object
+                Debug.Log($"[GameManager.TrySelectObject] Hit object {info.collider.gameObject.name} IS iTouchable.");
+
                 if (selectedObject == newObject)
                 {
-                    // Optional: If holding, maybe don't deselect/reselect.
-                    // If it was a quick tap that selected, GestureManager handles deselect on End.
-                    return;
+                    // If we tapped the same object that might already be selected (e.g., during hold)
+                    Debug.Log("[GameManager.TrySelectObject] Tapped the same object already selected.");
+                    return; // Already selected, do nothing further in this method
                 }
 
                 // Tapped a new touchable object
@@ -256,20 +255,22 @@ public class GameManager : MonoBehaviour
 
                 selectedObject = newObject;
                 // Get the main transform (parent if collider is child)
-                selectedTransform = info.collider.GetComponentInParent<Transform>();
+                selectedTransform = info.collider.GetComponentInParent<Transform>(); // Robust way to get the transform holding the script
                 selectedObject.SelectToggle(true); // Call interface method
-                Debug.Log("Selected object: " + selectedTransform.name);
+                Debug.Log($"[GameManager.TrySelectObject] SUCCESS: Selected object: {selectedTransform.name}");
             }
             else
             {
-                // Tapped something non-touchable
-                DeselectObject();
+                // Tapped something non-touchable that was hit by the raycast
+                Debug.LogWarning($"[GameManager.TrySelectObject] Raycast hit {info.collider.gameObject.name}, but it has NO iTouchable interface (or in parent). Deselecting.");
+                DeselectObject(); // Deselect any previously selected object
             }
         }
         else
         {
-            // Tapped empty space
-            DeselectObject();
+            // Raycast Didn't Hit Anything (that wasn't on the ignored layer mask)
+            Debug.Log("[GameManager.TrySelectObject] Raycast MISSED (didn't hit any non-ignored layer). Deselecting previous object if any.");
+            DeselectObject(); // Deselect any previously selected object
         }
     }
 
@@ -278,13 +279,21 @@ public class GameManager : MonoBehaviour
     {
         if (selectedObject != null)
         {
-            Debug.Log("Deselecting object: " + selectedTransform.name);
+            // Log before nulling out references
+            Debug.Log($"[GameManager.DeselectObject] Deselecting: {selectedTransform?.name ?? "Previously Selected Object"}");
             selectedObject.SelectToggle(false); // Call interface method
             selectedObject = null;
             selectedTransform = null;
         }
+        // else { Debug.Log("[GameManager.DeselectObject] Called, but no object was selected."); } // Optional: Log even if nothing was selected
     }
     // --- End Selection/Deselection ---
+
+    // --- Getter for CameraController ---
+    public iTouchable GetSelectedObject()
+    {
+        return selectedObject;
+    }
 
 
     public void HideGameOverPanel() // Called by UI button?
@@ -295,14 +304,18 @@ public class GameManager : MonoBehaviour
 
     public void ClearAllBlocks() // Called by ResetGameState
     {
+        Debug.Log("Clearing all blocks with tag 'Shape'...");
         GameObject[] blocks = GameObject.FindGameObjectsWithTag("Shape");
+        int count = 0;
         foreach (GameObject block in blocks)
         {
             Destroy(block);
+            count++;
         }
+        Debug.Log($"Destroyed {count} blocks.");
     }
 
-    // --- Renamed for clarity - Handles MOVEMENT only ---
+    // --- Handles MOVEMENT only ---
     private void HandleSingleTouchMovement()
     {
         if (selectedObject == null) return; // Should not happen if called correctly from Update
@@ -316,79 +329,32 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // --- In FILE GameManager.cs ---
+
     // --- Handles SCALING and ROTATION for the selected object ---
-    // Updated to pass values suitable for ShapeController
     private void HandleObjectManipulation()
     {
-        if (selectedObject == null || selectedTransform == null || Input.touchCount < 2) return;
+        if (selectedObject == null || Input.touchCount < 2) return; // Simplified check
 
         Touch touch1 = Input.GetTouch(0);
         Touch touch2 = Input.GetTouch(1);
 
+        // Call the interface methods directly, passing the touches.
+        // The specific implementation in TouchableObject (or potentially ShapeController if used)
+        // will handle the logic based on touch phases internally.
+
         // --- Scaling ---
-        if (touch1.phase == TouchPhase.Began || touch2.phase == TouchPhase.Began)
-        {
-            // Store initial distance and scale when second touch begins
-            initialDistance = Vector2.Distance(touch1.position, touch2.position);
-            initialScale = selectedTransform.localScale;
-        }
-        else if (touch1.phase == TouchPhase.Moved || touch2.phase == TouchPhase.Moved)
-        {
-            float currentDistance = Vector2.Distance(touch1.position, touch2.position);
-            // Calculate a scale *ratio* instead of the delta/dpi factor
-            if (initialDistance > 1f) // Avoid division by zero or tiny values
-            {
-                float scaleRatio = currentDistance / initialDistance;
-                // Let ShapeController handle applying this ratio relative to its *current* scale
-                // Note: ShapeController currently expects a delta factor. We might need to adjust
-                // EITHER this calculation OR ShapeController.ScaleObject.
-                // Let's try passing the *change* in distance relative to screen size as the factor.
-                float scaleFactorDelta = (currentDistance - initialDistance) / (Screen.dpi * 2f); // Smaller factor
-                selectedObject.ScaleObject(scaleFactorDelta); // Pass delta factor for now
-            }
+        // Delegate scaling logic entirely to the selected object's implementation
+        selectedObject.ScaleObject(touch1, touch2);
 
+        // --- Rotation ---
+        // Delegate rotation logic entirely to the selected object's implementation
+        selectedObject.RotateObject(touch1, touch2);
 
-            // --- Rotation ---
-            // Use average delta position for rotation input
-            // (ShapeController uses AddTorque, so delta position makes sense)
-            Vector2 rotationDelta = (touch1.deltaPosition + touch2.deltaPosition) * 0.5f;
-
-            // Add a threshold to avoid jittery rotation during scaling?
-            if (rotationDelta.magnitude > 0.5f) // Adjust threshold as needed
-            {
-                selectedObject.RotateObject(rotationDelta); // Pass average delta
-            }
-        }
+        // We no longer need initialDistance/initialScale calculations here in GameManager
+        // as the object itself handles its state (like lastPinchDistance in TouchableObject).
     }
     // --- End HandleObjectManipulation ---
-
-    // --- Rotates CAMERA when no object is selected ---
-    private void RotateCamera()
-    {
-        if (selectedObject != null || Input.touchCount < 2) return;
-
-        Touch touch1 = Input.GetTouch(0); // Use index 0
-        Touch touch2 = Input.GetTouch(1); // Use index 1
-
-        // Check if fingers moved significantly
-        if (touch1.phase == TouchPhase.Moved || touch2.phase == TouchPhase.Moved)
-        {
-            // Use average delta for smoother rotation (different from original)
-            Vector2 avgDelta = (touch1.deltaPosition + touch2.deltaPosition) * 0.5f;
-            float rotationSpeed = 0.15f; // Adjust speed as needed
-
-            // Horizontal (Y-axis) rotation in world space for consistency
-            mainCamera.transform.Rotate(Vector3.up, avgDelta.x * rotationSpeed, Space.World);
-
-            // Vertical (X-axis) rotation locally, clamped
-            float verticalInput = -avgDelta.y * rotationSpeed; // Invert Y
-            currentVerticalRotation = Mathf.Clamp(currentVerticalRotation + verticalInput, -verticalRotationLimit, verticalRotationLimit);
-
-            // Apply rotation, preserving world Y rotation
-            mainCamera.transform.localEulerAngles = new Vector3(currentVerticalRotation, mainCamera.transform.localEulerAngles.y, 0);
-        }
-    }
-    // --- End RotateCamera ---
 
 
     // --- Google Sheet Integration Methods ---
@@ -416,7 +382,7 @@ public class GameManager : MonoBehaviour
             request.downloadHandler = new DownloadHandlerBuffer();
             request.SetRequestHeader("Content-Type", "application/json");
 
-            Debug.Log($"Sending score ({finalScore}, Doubled: {wasDoubled}) to Google Sheet...");
+            Debug.Log($"Sending score ({finalScore}, Time: {Mathf.FloorToInt(finalTime)}, Doubled: {wasDoubled}) to Google Sheet...");
             yield return request.SendWebRequest();
 
             if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
@@ -432,5 +398,4 @@ public class GameManager : MonoBehaviour
     }
     // --- End Google Sheet Integration Methods ---
 
-    // Interface definition should be in iTouchable.cs, not here.
 }
