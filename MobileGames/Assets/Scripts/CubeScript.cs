@@ -1,4 +1,3 @@
-// CubeScript.cs
 using UnityEngine;
 
 public class CubeScript : TouchableObject

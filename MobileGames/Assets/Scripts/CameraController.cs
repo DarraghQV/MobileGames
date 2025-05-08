@@ -1,14 +1,12 @@
 using UnityEngine;
 public class CameraController : MonoBehaviour
 {
-
-
     public float panSpeed = 20f;
     public float rotationSpeed = 0.2f;
     public float zoomSpeed = 1f;
     public float gyroSensitivity = 2.0f;
 
-    private GameManager gameManager; 
+    private GameManager gameManager;
     private Vector3 lastPanPosition;
     private Vector2 lastMidpoint;
     private float lastPinchDistance;
@@ -38,10 +36,9 @@ public class CameraController : MonoBehaviour
             ApplyGyroRotation();
         }
 
-        // Check selection status via GameManager
         bool objectIsSelected = gameManager != null && gameManager.GetSelectedObject() != null;
 
-        if (Input.touchCount == 1 && !objectIsSelected) 
+        if (Input.touchCount == 1 && !objectIsSelected)
         {
             Touch t = Input.GetTouch(0);
 
@@ -60,9 +57,9 @@ public class CameraController : MonoBehaviour
                 isPanning = false;
             }
         }
-        else if (Input.touchCount >= 2 && !objectIsSelected) 
+        else if (Input.touchCount >= 2 && !objectIsSelected)
         {
-            isPanning = false; 
+            isPanning = false;
 
             Touch t1 = Input.GetTouch(0);
             Touch t2 = Input.GetTouch(1);
@@ -77,7 +74,7 @@ public class CameraController : MonoBehaviour
             else if (t1.phase == TouchPhase.Moved || t2.phase == TouchPhase.Moved)
             {
                 Vector2 delta = currentMidpoint - lastMidpoint;
-                if (delta.magnitude > 0.1f) 
+                if (delta.magnitude > 0.1f)
                 {
                     float horizontalAngle = delta.x * rotationSpeed;
                     OrbitCameraHorizontal(horizontalAngle);
@@ -91,7 +88,7 @@ public class CameraController : MonoBehaviour
                 float currentPinchDistance = Vector2.Distance(t1.position, t2.position);
                 float pinchDelta = currentPinchDistance - lastPinchDistance;
 
-                if (Mathf.Abs(pinchDelta) > 1f) 
+                if (Mathf.Abs(pinchDelta) > 1f)
                 {
                     ZoomCamera(pinchDelta);
                 }
@@ -99,7 +96,7 @@ public class CameraController : MonoBehaviour
                 lastPinchDistance = currentPinchDistance;
             }
         }
-        else if (Input.touchCount < 2) 
+        else if (Input.touchCount < 2)
         {
             if (Input.touchCount == 0) isPanning = false;
         }
@@ -117,7 +114,6 @@ public class CameraController : MonoBehaviour
         transform.Rotate(Vector3.right, -gyroDelta.x * gyroSensitivity, Space.Self);
     }
 
-    // Called from UI Button
     public void ToggleGyro()
     {
         useGyro = !useGyro;
@@ -136,12 +132,12 @@ public class CameraController : MonoBehaviour
         if (SystemInfo.supportsGyroscope)
         {
             Input.gyro.enabled = true;
-            useGyro = true; 
+            useGyro = true;
         }
         else
         {
             Debug.LogWarning("Gyroscope not supported on this device.");
-            useGyro = false; 
+            useGyro = false;
         }
     }
 
@@ -152,7 +148,7 @@ public class CameraController : MonoBehaviour
         Vector3 right = Vector3.ProjectOnPlane(transform.right, Vector3.up).normalized;
         Vector3 forward = Vector3.ProjectOnPlane(transform.forward, Vector3.up).normalized;
 
-        Vector3 move = (right * -offset.x + forward * -offset.y) * panSpeed; // Invert offset directions
+        Vector3 move = (right * -offset.x + forward * -offset.y) * panSpeed;
 
         transform.Translate(move, Space.World);
 
@@ -169,15 +165,15 @@ public class CameraController : MonoBehaviour
         float currentXAngle = transform.eulerAngles.x;
         float futureAngle = currentXAngle + angle;
 
-        if (futureAngle > 85f && futureAngle < 275f) 
+        if (futureAngle > 85f && futureAngle < 275f)
         {
-            if (angle > 0 && currentXAngle < 180f) angle = 85f - currentXAngle; 
-            else if (angle < 0 && currentXAngle > 180f) angle = 275f - currentXAngle; 
-            else angle = 0; 
+            if (angle > 0 && currentXAngle < 180f) angle = 85f - currentXAngle;
+            else if (angle < 0 && currentXAngle > 180f) angle = 275f - currentXAngle;
+            else angle = 0;
         }
 
 
-        if (Mathf.Abs(angle) > 0.01f) // Apply only if angle is significant
+        if (Mathf.Abs(angle) > 0.01f)
         {
             transform.RotateAround(transform.position, transform.right, angle);
         }
@@ -185,8 +181,7 @@ public class CameraController : MonoBehaviour
 
     void ZoomCamera(float pinchDelta)
     {
-        Vector3 zoomDirection = transform.forward * (pinchDelta * zoomSpeed * 0.01f); 
+        Vector3 zoomDirection = transform.forward * (pinchDelta * zoomSpeed * 0.01f);
         transform.position += zoomDirection;
-
     }
 }

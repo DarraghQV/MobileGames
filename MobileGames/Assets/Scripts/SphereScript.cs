@@ -3,13 +3,11 @@ using UnityEngine;
 public class SphereScript : TouchableObject
 {
     private float raycastDistance = 1000f;
-    // THIS is the key line causing the issue during movement:
     private LayerMask placementMask;
 
     protected override void Start()
     {
         base.Start();
-        // placementMask is set to ignore the "SphereLayer"
         placementMask = ~LayerMask.GetMask("SphereLayer");
     }
 
@@ -18,11 +16,8 @@ public class SphereScript : TouchableObject
         Ray ray = mainCamera.ScreenPointToRay(touch.position);
         RaycastHit hit;
 
-        // This raycast IGNORES the "SphereLayer" because of placementMask
         if (Physics.Raycast(ray, out hit, raycastDistance, placementMask))
         {
-            // So, the ray goes *through* the sphere and hits whatever is behind it.
-            // The sphere then teleports to that background hit point.
             transform.position = hit.point;
         }
     }

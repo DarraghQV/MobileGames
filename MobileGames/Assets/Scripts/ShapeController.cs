@@ -1,6 +1,7 @@
+// --- START OF FILE ShapeController.cs ---
 using UnityEngine;
 
-public class ShapeController : MonoBehaviour
+public class ShapeController : MonoBehaviour, iTouchable
 {
     private Rigidbody _rb;
     private bool _isOnPlatform;
@@ -8,89 +9,142 @@ public class ShapeController : MonoBehaviour
     private Vector3 _lastPlatformPosition;
     private Renderer _renderer;
     private Color _originalColor;
-    private bool _isBeingDragged = false;
-    private float _dragHeightOffset = 0.5f; // Height above touch point
+    private float _dragHeightOffset = 0.5f;
     private float _moveSmoothing = 10f;
     private bool _isSelected = false;
 
+    private Vector2 _previousTouch1Pos;
+    private Vector2 _previousTouch2Pos;
+    private float _lastPinchDistance;
 
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
-        _isOnPlatform = false;
+        if (_rb == null)
+        {
+            Debug.LogError("ShapeController requires a Rigidbody component!", this);
+            enabled = false;
+            return;
+        }
+        _isOnPlatform = false; // Will be set by OnCollisionEnter
         _renderer = GetComponent<Renderer>();
-        _originalColor = _renderer.material.color;
+        if (_renderer != null)
+        {
+            _originalColor = _renderer.material.color;
+        }
         gameObject.tag = "Shape";
 
-        // Configure physics for better dragging
         _rb.interpolation = RigidbodyInterpolation.Interpolate;
         _rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+        _rb.isKinematic = false;
     }
 
     void FixedUpdate()
     {
-        if (_isOnPlatform && _platform != null && !_isBeingDragged)
+        if (_rb.isKinematic)
         {
+            return; // If selected and kinematic, do nothing here
+        }
+
+        // If not kinematic (i.e., not selected)
+        if (_isOnPlatform && _platform != null)
+        {
+            // Move with platform
             Vector3 platformMovement = _platform.position - _lastPlatformPosition;
-            transform.position += platformMovement;
+            _rb.MovePosition(_rb.position + platformMovement);
             _lastPlatformPosition = _platform.position;
         }
+        // else: No special falling logic. Gravity will act naturally based on Rigidbody settings.
     }
 
     public void SelectToggle(bool isSelected)
     {
         _isSelected = isSelected;
-        _renderer.material.color = isSelected ? Color.cyan : _originalColor;
-        
-        if (!isSelected)
+        if (_renderer != null)
         {
-            // When released, maintain some momentum
-            _rb.velocity *= 0.7f;
+            _renderer.material.color = isSelected ? Color.cyan : _originalColor;
         }
     }
 
     public void MoveObject(Touch touch, Camera mainCamera)
     {
-        if (!_isSelected) return;
+        if (!_isSelected || !_rb.isKinematic) return;
 
         Ray ray = mainCamera.ScreenPointToRay(touch.position);
-        Plane plane = new Plane(Vector3.up, transform.position.y - _dragHeightOffset);
+        Plane dragPlane = new Plane(Vector3.up, transform.position.y - _dragHeightOffset);
 
-        if (plane.Raycast(ray, out float distance))
+        if (dragPlane.Raycast(ray, out float distance))
         {
-            Vector3 targetPosition = ray.GetPoint(distance);
-            Vector3 direction = (targetPosition - transform.position);
-            
-            // Smooth movement with acceleration
-            float speed = Mathf.Min(direction.magnitude * 5f, 10f);
-            _rb.velocity = direction.normalized * speed;
+            Vector3 pointOnPlane = ray.GetPoint(distance);
+            Vector3 targetPosition = pointOnPlane + Vector3.up * _dragHeightOffset;
+            transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * _moveSmoothing);
         }
     }
 
-    public void ScaleObject(float scaleFactor)
+    public void ScaleObject(Touch touch1, Touch touch2)
     {
-        float scaleMultiplier = 1 + Mathf.Clamp(scaleFactor * 0.01f, -0.1f, 0.1f);
+        if (!_isSelected || !_rb.isKinematic) return;
+
+        float currentPinchDistance = Vector2.Distance(touch1.position, touch2.position);
+
+        if (touch1.phase == TouchPhase.Began || touch2.phase == TouchPhase.Began)
+        {
+            _lastPinchDistance = currentPinchDistance;
+            return;
+        }
+
+        if (_lastPinchDistance <= 0)
+        {
+            _lastPinchDistance = currentPinchDistance;
+            return;
+        }
+
+        float pinchDelta = currentPinchDistance - _lastPinchDistance;
+        float scaleFactorFromPinch = pinchDelta * 0.1f;
+
+        float scaleMultiplier = 1 + Mathf.Clamp(scaleFactorFromPinch * 0.01f, -0.1f, 0.1f);
         Vector3 newScale = transform.localScale * scaleMultiplier;
 
-        // Limit minimum and maximum size
         newScale = Vector3.Max(newScale, Vector3.one * 0.3f);
         newScale = Vector3.Min(newScale, Vector3.one * 3f);
 
         transform.localScale = newScale;
-        _rb.mass = newScale.x; // Mass scales with size
+        _lastPinchDistance = currentPinchDistance;
     }
 
-    public void RotateObject(Vector2 rotationDelta)
+    public void RotateObject(Touch touch1, Touch touch2)
     {
-        float rotationSpeed = 1f;
-        _rb.AddTorque(Vector3.up * rotationDelta.x * rotationSpeed, ForceMode.VelocityChange);
-        _rb.AddTorque(Vector3.right * rotationDelta.y * rotationSpeed, ForceMode.VelocityChange);
+        if (!_isSelected || !_rb.isKinematic) return;
+
+        if (touch1.phase == TouchPhase.Began || touch2.phase == TouchPhase.Began)
+        {
+            _previousTouch1Pos = touch1.position;
+            _previousTouch2Pos = touch2.position;
+            return;
+        }
+
+        if (touch1.phase == TouchPhase.Moved || touch2.phase == TouchPhase.Moved)
+        {
+            Vector2 prevVector = _previousTouch2Pos - _previousTouch1Pos;
+            Vector2 currentVector = touch2.position - touch1.position;
+
+            float angleDelta = Vector2.SignedAngle(prevVector, currentVector);
+            float rotationSpeed = 0.5f;
+
+            transform.Rotate(Vector3.up, angleDelta * rotationSpeed, Space.World);
+
+            _previousTouch1Pos = touch1.position;
+            _previousTouch2Pos = touch2.position;
+        }
     }
 
     public void ChangeColor(Color color)
     {
-        _renderer.material.color = color;
-        _originalColor = color;
+        if (_renderer != null)
+        {
+            _renderer.material.color = color;
+            _originalColor = color;
+        }
     }
 
     void OnCollisionEnter(Collision collision)
@@ -100,8 +154,8 @@ public class ShapeController : MonoBehaviour
             _isOnPlatform = true;
             _platform = collision.transform;
             _lastPlatformPosition = _platform.position;
-            _rb.drag = 5f;
-            _rb.angularDrag = 5f;
+            // REMOVED: _rb.drag = 5f; 
+            // REMOVED: _rb.angularDrag = 5f;
         }
     }
 
@@ -111,8 +165,9 @@ public class ShapeController : MonoBehaviour
         {
             _isOnPlatform = false;
             _platform = null;
-            _rb.drag = 0.5f;
-            _rb.angularDrag = 0.5f;
+            // REMOVED: _rb.drag = 0.05f; 
+            // REMOVED: _rb.angularDrag = 0.1f;
         }
     }
 }
+// --- END OF FILE ShapeController.cs ---
