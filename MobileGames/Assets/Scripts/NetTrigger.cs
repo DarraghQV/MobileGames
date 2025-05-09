@@ -12,7 +12,6 @@ public class NetTrigger : MonoBehaviour
                 gameManager.GameOver();
             }
 
-            // Optional: Visual feedback when cube hits net
             Renderer renderer = other.GetComponent<Renderer>();
             if (renderer != null)
             {

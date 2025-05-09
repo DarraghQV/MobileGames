@@ -9,7 +9,7 @@ public class ShapeController : MonoBehaviour
     private Renderer _renderer;
     private Color _originalColor;
     private bool _isBeingDragged = false;
-    private float _dragHeightOffset = 0.5f; // Height above touch point
+    private float _dragHeightOffset = 0.5f; 
     private float _moveSmoothing = 10f;
     private bool _isSelected = false;
 
@@ -22,7 +22,6 @@ public class ShapeController : MonoBehaviour
         _originalColor = _renderer.material.color;
         gameObject.tag = "Shape";
 
-        // Configure physics for better dragging
         _rb.interpolation = RigidbodyInterpolation.Interpolate;
         _rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
     }
@@ -44,7 +43,6 @@ public class ShapeController : MonoBehaviour
         
         if (!isSelected)
         {
-            // When released, maintain some momentum
             _rb.velocity *= 0.7f;
         }
     }
@@ -61,7 +59,6 @@ public class ShapeController : MonoBehaviour
             Vector3 targetPosition = ray.GetPoint(distance);
             Vector3 direction = (targetPosition - transform.position);
             
-            // Smooth movement with acceleration
             float speed = Mathf.Min(direction.magnitude * 5f, 10f);
             _rb.velocity = direction.normalized * speed;
         }
@@ -77,7 +74,7 @@ public class ShapeController : MonoBehaviour
         newScale = Vector3.Min(newScale, Vector3.one * 3f);
 
         transform.localScale = newScale;
-        _rb.mass = newScale.x; // Mass scales with size
+        _rb.mass = newScale.x; 
     }
 
     public void RotateObject(Vector2 rotationDelta)

@@ -20,7 +20,6 @@ public class Interstitial : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowL
         _gameManager = FindObjectOfType<GameManager>();
     }
 
-    // Call this from UI button
     public void ShowAdThenRestart()
     {
         if (Advertisement.isInitialized)
@@ -49,11 +48,9 @@ public class Interstitial : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowL
             _gameManager.gameOverPanel.SetActive(false);
             Time.timeScale = 1;
 
-            // This will automatically restart spawning through GameManager's existing InvokeRepeating
         }
     }
 
-    // Ad callback handlers
     public void OnUnityAdsAdLoaded(string adUnitId) => Advertisement.Show(adUnitId, this);
     public void OnUnityAdsShowComplete(string adUnitId, UnityAdsShowCompletionState _) => DirectRestart();
     public void OnUnityAdsFailedToLoad(string _, UnityAdsLoadError __, string ___) => DirectRestart();

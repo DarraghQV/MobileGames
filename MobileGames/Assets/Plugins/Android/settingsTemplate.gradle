@@ -1,0 +1,29 @@
+pluginManagement {
+    repositories {
+        **ARTIFACTORYREPOSITORY** 
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+}
+
+rootProject.name = "Gradle App"
+include ':launcher'
+include ':unityLibrary'
+include ":GoogleMobileAdsPlugin.androidlib" 
+include ":mobilenotifications.androidlib" 
+**INCLUDES** 
+**DEPS_SETTINGS_PROJECTS**
+
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS) 
+    repositories {
+        **ARTIFACTORYREPOSITORY**
+        google()
+        mavenCentral()
+        flatDir {
+            dirs "${project(':unityLibrary').projectDir}/libs"
+        }
+    }
+}
+

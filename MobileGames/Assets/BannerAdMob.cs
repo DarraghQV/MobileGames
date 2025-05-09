@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using GoogleMobileAds.Api;
 using System.Linq;
 
-[DisallowMultipleComponent] // Prevents duplicate scripts
+[DisallowMultipleComponent] 
 public class BannerAdManager : MonoBehaviour
 {
     [Header("UI Controls")]

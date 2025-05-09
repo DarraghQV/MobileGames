@@ -5,12 +5,12 @@ public class CylinderScript : TouchableObject
     protected override void Start()
     {
         base.Start();
-        rotationSpeed = 2f; // Increased to maximum practical value
+        rotationSpeed = 2f; 
     }
 
     public override void MoveObject(Touch touch, Camera mainCamera)
     {
-        float sensitivity = 0.05f; // Maximum responsive value
+        float sensitivity = 0.05f; 
         Vector3 touchDelta = touch.deltaPosition * sensitivity;
 
         transform.RotateAround(mainCamera.transform.position,

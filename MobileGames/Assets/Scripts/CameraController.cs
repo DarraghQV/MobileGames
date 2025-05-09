@@ -38,7 +38,6 @@ public class CameraController : MonoBehaviour
             ApplyGyroRotation();
         }
 
-        // Check selection status via GameManager
         bool objectIsSelected = gameManager != null && gameManager.GetSelectedObject() != null;
 
         if (Input.touchCount == 1 && !objectIsSelected) 
@@ -117,7 +116,6 @@ public class CameraController : MonoBehaviour
         transform.Rotate(Vector3.right, -gyroDelta.x * gyroSensitivity, Space.Self);
     }
 
-    // Called from UI Button
     public void ToggleGyro()
     {
         useGyro = !useGyro;
@@ -152,7 +150,7 @@ public class CameraController : MonoBehaviour
         Vector3 right = Vector3.ProjectOnPlane(transform.right, Vector3.up).normalized;
         Vector3 forward = Vector3.ProjectOnPlane(transform.forward, Vector3.up).normalized;
 
-        Vector3 move = (right * -offset.x + forward * -offset.y) * panSpeed; // Invert offset directions
+        Vector3 move = (right * -offset.x + forward * -offset.y) * panSpeed; 
 
         transform.Translate(move, Space.World);
 
@@ -177,7 +175,7 @@ public class CameraController : MonoBehaviour
         }
 
 
-        if (Mathf.Abs(angle) > 0.01f) // Apply only if angle is significant
+        if (Mathf.Abs(angle) > 0.01f) 
         {
             transform.RotateAround(transform.position, transform.right, angle);
         }

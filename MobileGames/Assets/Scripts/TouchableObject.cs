@@ -1,19 +1,17 @@
 using UnityEngine;
 
-// Add ", iTouchable" after MonoBehaviour
 public abstract class TouchableObject : MonoBehaviour, iTouchable
 {
     protected Renderer r;
     protected float rotationSpeed = 0.5f;
-    protected float scaleSpeed = 0.001f; // Updated scaleSpeed
-    protected float lastPinchDistance; // Added for new ScaleObject method
+    protected float scaleSpeed = 0.001f; 
+    protected float lastPinchDistance; 
 
     protected virtual void Start()
     {
         r = GetComponent<Renderer>();
     }
 
-    // These methods now correctly fulfill the iTouchable interface requirements
 
     public virtual void SelectToggle(bool selected)
     {
@@ -22,8 +20,8 @@ public abstract class TouchableObject : MonoBehaviour, iTouchable
 
     public virtual void ChangeColor(Color color)
     {
-        if (r == null) r = GetComponent<Renderer>(); // Add safety check
-        if (r != null && r.material != null) // Check material too
+        if (r == null) r = GetComponent<Renderer>(); 
+        if (r != null && r.material != null) 
         {
             r.material.color = color;
         }
@@ -36,22 +34,8 @@ public abstract class TouchableObject : MonoBehaviour, iTouchable
     public abstract void MoveObject(Touch touch, Camera mainCamera);
 
 
-    // --- NOTE ---
-    // GameManager currently calls ScaleObject(float) and RotateObject(Vector2)
-    // which are NOT defined in this base class or iTouchable.
-    // If you intend to use THIS hierarchy, GameManager.HandleObjectManipulation
-    // needs to be changed to call the RotateObject/ScaleObject methods below,
-    // OR you need to add the float/Vector2 versions back into iTouchable and here.
-
-    // Added ScaleObject(float) to satisfy current GameManager calls if needed
-    // This implementation might differ from ShapeController's intent
-
-
-    // --- These methods use Touch input directly ---
-    // --- Not currently called by GameManager ---
     public virtual void RotateObject(Touch t1, Touch t2)
     {
-        // Ensure Camera.main is valid
         if (Camera.main == null) return;
 
         Vector3 worldPos1 = Camera.main.ScreenToWorldPoint(new Vector3(t1.position.x, t1.position.y, Camera.main.nearClipPlane + 1f)); // Add small offset
@@ -73,25 +57,21 @@ public abstract class TouchableObject : MonoBehaviour, iTouchable
 
         if (t1.phase == TouchPhase.Began || t2.phase == TouchPhase.Began)
         {
-            lastPinchDistance = currentDistance; //reset pinch distance on new pinch
-            return; // Don't scale on the first frame of the pinch
+            lastPinchDistance = currentDistance;
+            return; 
         }
-
-        // Check if lastPinchDistance is valid
         if (lastPinchDistance <= 0)
         {
-            lastPinchDistance = currentDistance; // Initialize if needed
+            lastPinchDistance = currentDistance; 
             return;
         }
 
-
-        float scaleFactor = (currentDistance - lastPinchDistance) * scaleSpeed; // Uses the updated small scaleSpeed
+        float scaleFactor = (currentDistance - lastPinchDistance) * scaleSpeed; 
         transform.localScale += Vector3.one * scaleFactor;
 
         // Clamp scale to prevent inversion or extreme sizes
         transform.localScale = Vector3.Max(transform.localScale, Vector3.one * 0.1f);
         transform.localScale = Vector3.Min(transform.localScale, Vector3.one * 10f);
-
 
         lastPinchDistance = currentDistance;
     }
